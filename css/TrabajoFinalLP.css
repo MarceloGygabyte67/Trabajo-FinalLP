@@ -1,0 +1,402 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at 50% 25%, #182033 0%, #080b12 100%);
+  overflow-x: hidden;
+  color: #fff;
+  padding: 2rem 1rem;
+}
+
+/* Orbes flotantes de iluminación */
+.background-scene {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.42;
+  animation: floatOrb 18s ease-in-out infinite alternate;
+}
+
+.orb-1 { width: 450px; height: 450px; background: #2563eb; top: 8%; left: 12%; }
+.orb-2 { width: 480px; height: 480px; background: #8b5cf6; bottom: 8%; right: 12%; animation-delay: -5s; }
+.orb-3 { width: 340px; height: 340px; background: #059669; top: 40%; left: 55%; animation-delay: -10s; }
+
+@keyframes floatOrb {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(60px, -45px) scale(1.15); }
+  100% { transform: translate(-45px, 45px) scale(0.9); }
+}
+
+/* Tarjeta y Perspectiva 3D */
+.card-perspective-wrapper {
+  perspective: 1500px;
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 530px;
+}
+
+.card-3d {
+  position: relative;
+  width: 100%;
+  padding: 2.6rem 2.2rem;
+  background: rgba(22, 29, 47, 0.78);
+  backdrop-filter: blur(25px) saturate(190%);
+  -webkit-backdrop-filter: blur(25px) saturate(190%);
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transform-style: preserve-3d;
+  box-shadow: 
+    0 35px 80px -15px rgba(0, 0, 0, 0.85),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
+  transition: transform 0.15s ease-out, box-shadow 0.2s ease-out;
+  will-change: transform;
+}
+
+/* Reflejo de luz (Glare) */
+.card-glare {
+  position: absolute;
+  inset: -100%;
+  background: radial-gradient(circle 380px at 50% 50%, rgba(255, 255, 255, 0.16), transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+  mix-blend-mode: overlay;
+}
+
+.layer-3d {
+  transform-style: preserve-3d;
+}
+
+/* Cabecera */
+.card-header {
+  text-align: center;
+  margin-bottom: 1.8rem;
+  transform: translateZ(45px);
+}
+
+.icon-badge {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 65px;
+  height: 65px;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  border-radius: 20px;
+  font-size: 1.7rem;
+  box-shadow: 0 12px 25px rgba(59, 130, 246, 0.45);
+  margin-bottom: 0.9rem;
+  transform: translateZ(55px);
+}
+
+.card-header h2 {
+  font-size: 1.85rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 40%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card-header p {
+  font-size: 0.88rem;
+  color: #94a3b8;
+  margin-top: 0.3rem;
+}
+
+/* Campos de entrada */
+.card-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transform: translateZ(35px);
+}
+
+.input-group {
+  position: relative;
+  transform: translateZ(25px);
+}
+
+.icon-input {
+  position: absolute;
+  left: 1.2rem;
+  top: 1.15rem;
+  color: #64748b;
+  font-size: 1.05rem;
+  transition: 0.3s ease;
+}
+
+.textarea-icon {
+  top: 1.2rem;
+}
+
+.input-group input,
+.input-group textarea {
+  width: 100%;
+  padding: 1.05rem 1.2rem 1.05rem 3.1rem;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.input-group textarea {
+  resize: vertical;
+  min-height: 95px;
+}
+
+.input-group label {
+  position: absolute;
+  left: 3.1rem;
+  top: 1.15rem;
+  color: #64748b;
+  font-size: 0.92rem;
+  pointer-events: none;
+  transition: 0.25s ease all;
+}
+
+.input-group input:focus ~ label,
+.input-group input:not(:placeholder-shown) ~ label,
+.input-group textarea:focus ~ label,
+.input-group textarea:not(:placeholder-shown) ~ label {
+  top: -0.65rem;
+  left: 1.2rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #38bdf8;
+  background: #0f172a;
+  padding: 0 0.45rem;
+  border-radius: 6px;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+  transform: translateZ(10px);
+}
+
+/* Checkbox de confirmación */
+.checkbox-container {
+  transform: translateZ(30px);
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  font-size: 0.84rem;
+  color: #94a3b8;
+  gap: 0.75rem;
+}
+
+.custom-checkbox input {
+  opacity: 0;
+  position: absolute;
+}
+
+.checkmark {
+  width: 22px;
+  height: 22px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  display: inline-block;
+  transition: all 0.2s ease;
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+.custom-checkbox input:checked ~ .label-text {
+  color: #fff;
+}
+
+/* Botón 3D con Relieve */
+.btn-3d {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 1.15rem;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  border: none;
+  border-radius: 18px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 12px 25px -4px rgba(37, 99, 235, 0.5), 0 4px 0 #1d4ed8;
+  transform: translateZ(60px);
+  transition: all 0.2s ease;
+  margin-top: 0.4rem;
+}
+
+.btn-3d:hover {
+  transform: translateZ(70px) translateY(-3px);
+  box-shadow: 0 18px 30px rgba(37, 99, 235, 0.65), 0 5px 0 #1d4ed8;
+}
+
+.btn-3d:active {
+  transform: translateZ(45px) translateY(2px);
+  box-shadow: 0 6px 15px rgba(37, 99, 235, 0.4), 0 1px 0 #1d4ed8;
+}
+
+.btn-text, .btn-loader {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.btn-loader { position: absolute; opacity: 0; pointer-events: none; }
+.btn-3d.loading .btn-text { opacity: 0; }
+.btn-3d.loading .btn-loader { opacity: 1; pointer-events: auto; }
+
+/* =========================================
+   MODAL 3D: APROBADO / DESAPROBADO
+   ========================================= */
+.status-popup {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 15, 28, 0.94);
+  backdrop-filter: blur(20px);
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2.2rem;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateZ(120px) scale(0.85);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 50;
+}
+
+.status-popup.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateZ(120px) scale(1);
+}
+
+.popup-3d-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transform-style: preserve-3d;
+}
+
+.popup-veredicto {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  transform: translateZ(40px);
+}
+
+/* ESTADO APROBADO */
+.status-popup.aprobado .popup-veredicto {
+  color: #34d399;
+  text-shadow: 0 0 20px rgba(52, 211, 153, 0.7);
+}
+.status-popup.aprobado .popup-icon {
+  background: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+  border: 2px solid #22c55e;
+  box-shadow: 0 0 30px rgba(34, 197, 94, 0.5);
+  animation: pulseGreen 1.8s infinite;
+}
+
+/* ESTADO DESAPROBADO */
+.status-popup.desaprobado .popup-veredicto {
+  color: #f87171;
+  text-shadow: 0 0 20px rgba(248, 113, 113, 0.7);
+}
+.status-popup.desaprobado .popup-icon {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  border: 2px solid #ef4444;
+  box-shadow: 0 0 30px rgba(239, 68, 68, 0.5);
+  animation: shake3D 0.5s ease-in-out;
+}
+
+.popup-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.6rem;
+  margin-bottom: 1.2rem;
+  transform: translateZ(50px);
+}
+
+.popup-3d-box h4 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+  transform: translateZ(30px);
+}
+
+.popup-3d-box p {
+  color: #94a3b8;
+  font-size: 0.92rem;
+  margin-bottom: 1.6rem;
+  transform: translateZ(20px);
+}
+
+.popup-3d-box button {
+  padding: 0.85rem 2.4rem;
+  background: #3b82f6;
+  border: none;
+  border-radius: 14px;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transform: translateZ(45px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+  transition: all 0.2s ease;
+}
+
+.popup-3d-box button:hover {
+  background: #2563eb;
+  transform: translateZ(55px) scale(1.05);
+}
+
+@keyframes pulseGreen {
+  0%, 100% { transform: translateZ(50px) scale(1); }
+  50% { transform: translateZ(60px) scale(1.1); }
+}
+
+@keyframes shake3D {
+  0%, 100% { transform: translateZ(50px) translateX(0); }
+  20%, 60% { transform: translateZ(50px) translateX(-10px); }
+  40%, 80% { transform: translateZ(50px) translateX(10px); }
+}

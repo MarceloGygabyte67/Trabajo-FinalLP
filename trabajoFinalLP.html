@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solicitud de Envío 3D | Aprobado o Desaprobado</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/TrabajoFinalLT.css">
+</head>
+<body>
+
+  <!-- Fondo de atmósfera 3D con orbes flotantes -->
+  <div class="background-scene">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <main class="card-perspective-wrapper">
+    <section class="card-3d" id="card3D">
+      <!-- Brillo de iluminación física dinámico (Glare) -->
+      <div class="card-glare" id="cardGlare"></div>
+
+      <!-- Cabecera 3D -->
+      <header class="card-header layer-3d">
+        <div class="icon-badge">
+          <i class="fa-solid fa-file-signature"></i>
+        </div>
+        <h2>Solicitud de Envío</h2>
+        <p>Completa la información para autorizar el despacho a tu correo</p>
+      </header>
+
+      <!-- Formulario de Envío -->
+      <form id="formularioSolicitud" class="card-form" autocomplete="off">
+        <div class="input-group layer-3d">
+          <i class="fa-solid fa-user icon-input"></i>
+          <input type="text" id="nombre" name="nombre" placeholder=" " required>
+          <label for="nombre">Nombre del Solicitante</label>
+        </div>
+
+        <div class="input-group layer-3d">
+          <i class="fa-solid fa-envelope icon-input"></i>
+          <input type="email" id="correo" name="correo" placeholder=" " required>
+          <label for="correo">Correo Electrónico Destino</label>
+        </div>
+
+        <div class="input-group layer-3d">
+          <i class="fa-solid fa-list-check icon-input"></i>
+          <input type="text" id="tipo_solicitud" name="tipo_solicitud" placeholder=" " required>
+          <label for="tipo_solicitud">Motivo o Asunto de la Solicitud</label>
+        </div>
+
+        <div class="input-group layer-3d">
+          <i class="fa-solid fa-message icon-input textarea-icon"></i>
+          <textarea id="detalles" name="detalles" rows="3" placeholder=" " required></textarea>
+          <label for="detalles">Detalles de la Solicitud...</label>
+        </div>
+
+        <!-- Casilla de Aprobación de Términos -->
+        <div class="checkbox-container layer-3d">
+          <label class="custom-checkbox">
+            <input type="checkbox" id="confirmacion" name="confirmacion" required>
+            <span class="checkmark"></span>
+            <span class="label-text">Acepto los términos para autorizar y aprobar el envío.</span>
+          </label>
+        </div>
+
+        <!-- Botón 3D con relieve dinámico -->
+        <button type="submit" id="btnEnviar" class="btn-3d layer-3d">
+          <span class="btn-text">
+            <span>Procesar Solicitud</span>
+            <i class="fa-solid fa-paper-plane"></i>
+          </span>
+          <span class="btn-loader">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+            <span>Evaluando y despachando...</span>
+          </span>
+        </button>
+      </form>
+
+      <!-- PANEL MODAL 3D: APROBADO / DESAPROBADO -->
+      <div id="statusPopup" class="status-popup">
+        <div class="popup-3d-box" id="popupBox">
+          <div class="popup-icon" id="popupIcon"></div>
+          <span class="popup-veredicto" id="popupVeredicto"></span>
+          <h4 id="popupTitle"></h4>
+          <p id="popupMessage"></p>
+          <button type="button" id="popupCloseBtn">Aceptar y Continuar</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
